@@ -1,8 +1,7 @@
 package cz.tul;
 
-import cz.tul.data.OffersDao;
-import cz.tul.data.User;
-import cz.tul.data.UsersDao;
+import cz.tul.data.CountriesDao;
+import cz.tul.data.Country;
 import cz.tul.provisioning.Provisioner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,20 +9,28 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+
 import java.util.List;
+
 
 @SpringBootApplication
 public class Main {
 
     @Bean
-    public OffersDao offersDao() {
-        return new OffersDao();
+    public CountriesDao countriesDao() {
+        return new CountriesDao();
     }
 
-    @Bean
-    public UsersDao usersDao() {
-        return new UsersDao();
-    }
+
 
     @Profile({"devel", "test"})
     @Bean(initMethod = "doProvision")
@@ -36,12 +43,22 @@ public class Main {
         SpringApplication app = new SpringApplication(Main.class);
         ApplicationContext ctx = app.run(args);
 
-        UsersDao usersDao = ctx.getBean(UsersDao.class);
 
-        List<User> users = usersDao.getAllUsers();
-        for (User u : users) {
-            System.out.println(u.getUsername());
+
+
+
+        CountriesDao countries = ctx.getBean(CountriesDao.class);
+
+
+
+        List<Country> countriesList = countries.getAllCountries();
+        for(Country c : countriesList) {
+            System.out.println(c);
         }
+
+        Country newCountry = new Country("MAU", "Mauthasen");
+        System.out.println(newCountry);
+        countries.create(newCountry);
 
 
     }

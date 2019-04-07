@@ -1,6 +1,8 @@
 package cz.tul.data;
 
 
+
+
 public class Country {
 
     private String code;
@@ -34,13 +36,6 @@ public class Country {
     @Override
     public String toString() {
         return "Country[code=" + this.code + ", name=" + this.name + "]";
-    }
-
-    public JsonObject toJson() {
-        JsonObject obj = new JsonObject();
-        obj.put("code", this.code);
-        obj.put("name", this.name);
-        return obj;
     }
 
 

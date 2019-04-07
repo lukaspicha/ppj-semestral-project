@@ -1,0 +1,9 @@
+[{
+    "code":"CZE",
+    "name":"Czech Republic",
+    "cities":[
+      "Liberec",
+      "Prague"
+    ],
+},
+  {"code":"CAN","name":"Canada","cities":"Ottawa"}]
