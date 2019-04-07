@@ -1,12 +1,23 @@
 package cz.tul.data;
 
+import java.util.Objects;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "cities")
 public class City {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    protected int id;
 
-    private String name;
+    @Column(name = "name")
+    protected String name;
 
-    private Country country;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_code")
+    protected Country country;
 
     public City() {
 

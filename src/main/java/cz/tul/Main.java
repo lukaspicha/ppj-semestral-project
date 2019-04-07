@@ -1,41 +1,33 @@
 package cz.tul;
 
-import cz.tul.data.CountriesDao;
 import cz.tul.data.Country;
-import cz.tul.provisioning.Provisioner;
+import cz.tul.data.City;
+import cz.tul.service.CityService;
+import cz.tul.service.CountryService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
 
 import java.util.List;
 
 
 @SpringBootApplication
+@EnableJpaRepositories("cz.tul.repositories")
+@EntityScan("cz.tul.data")
 public class Main {
 
     @Bean
-    public CountriesDao countriesDao() {
-        return new CountriesDao();
+    public CityService cityResource() {
+        return new CityService();
     }
 
-
-
-    @Profile({"devel", "test"})
-    @Bean(initMethod = "doProvision")
-    public Provisioner provisioner() {
-        return new Provisioner();
+    @Bean
+    public CountryService countryService() {
+        return new CountryService();
     }
 
     public static void main(String[] args) throws Exception {
@@ -43,22 +35,13 @@ public class Main {
         SpringApplication app = new SpringApplication(Main.class);
         ApplicationContext ctx = app.run(args);
 
+        CountryService countryService = ctx.getBean(CountryService.class);
+        List<Country> countries = countryService.selectAll();
+        System.out.println(countries);
 
-
-
-
-        CountriesDao countries = ctx.getBean(CountriesDao.class);
-
-
-
-        List<Country> countriesList = countries.getAllCountries();
-        for(Country c : countriesList) {
-            System.out.println(c);
-        }
-
-        Country newCountry = new Country("MAU", "Mauthasen");
-        System.out.println(newCountry);
-        countries.create(newCountry);
+        CityService cityService = ctx.getBean(CityService.class);
+        List<City> cities = cityService.selectAll();
+        System.out.println(cities);
 
 
     }

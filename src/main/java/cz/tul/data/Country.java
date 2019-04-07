@@ -1,12 +1,22 @@
 package cz.tul.data;
 
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-
+@Entity
+@Table(name = "countries")
 public class Country {
 
-    private String code;
-    private String name;
+    @Id
+    @Column(name = "code")
+    protected String code;
+
+    @Column(name = "name")
+    protected String name;
+
 
     public Country() {
 
