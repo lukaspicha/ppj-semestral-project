@@ -15,6 +15,9 @@ public class City {
     @Column(name = "name")
     protected String name;
 
+    @Column(name = "openweathermap_name")
+    protected String openEatherMapName;
+
     @ManyToOne(fetch = FetchType.EAGER) // https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
     @JoinColumn(name = "country_code")
     protected Country country;
@@ -23,15 +26,17 @@ public class City {
 
     }
 
-    public City(Country country, String name) {
+    public City(Country country, String name, String openEatherMapName) {
         this.country = country;
         this.name = name;
+        this.openEatherMapName = openEatherMapName;
     }
 
-    public City(int id, Country country, String name) {
+    public City(int id, Country country, String name, String openEatherMapName) {
         this.id = id;
         this.country = country;
         this.name = name;
+        this.openEatherMapName = openEatherMapName
     }
 
     public int getId() {
@@ -56,13 +61,24 @@ public class City {
     }
 
     public void setCountry(Country country) {
-
         this.country = country;
+    }
+
+    public String getOpenEatherMapName() {
+        return this.openEatherMapName;
+    }
+
+    public void  setOpenEatherMapName(String openEatherMapName) {
+         this.openEatherMapName = openEatherMapName;
     }
 
     @Override
     public String toString() {
-        return "City[id=" + this.id + ", name=" + this.name + ", country=" + this.country + "]";
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", openEatherMapName='" + openEatherMapName + '\'' +
+                ", country=" + country +
+                '}';
     }
-
 }

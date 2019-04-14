@@ -43,10 +43,12 @@ public class Country {
         this.name = name;
     }
 
+
     @Override
     public String toString() {
-        return "Country[code=" + this.code + ", name=" + this.name + "]";
+        return "Country{" +
+                "code='" + this.code + '\'' +
+                ", name='" + this.name + '\'' +
+                '}';
     }
-
-
 }
