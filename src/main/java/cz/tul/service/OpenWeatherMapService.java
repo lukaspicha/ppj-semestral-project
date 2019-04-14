@@ -2,6 +2,7 @@ package cz.tul.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.tul.data.Measurement;
 import org.omg.CORBA.Object;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -31,19 +32,24 @@ public class OpenWeatherMapService {
     }
 
     //TODO upravit, resp.pro kazde nove volani resetovat predchozi cityid
-    public String getByCityId(String cityId) {
+    public Measurement getByCityId(String cityId) {
         this.uriBuilder.queryParam("id", cityId);
         try {
             ResponseEntity<String> response = this.restTemplate.getForEntity(uriBuilder.toUriString(), String.class);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
-            return root.get("main").toString();
+            JsonNode main = root.get("main");
+
+             return new Measurement(main.get("temp").floatValue(), main.get("pressure").asInt(), main.get("humidity").asInt(), root.get("dt").asLong(), this.units);
+
         } catch (HttpStatusCodeException e) {
             int statusCode = e.getStatusCode().value();
-            return e.getMessage();
+            //return e.getMessage();
         } catch (IOException e) {
-            return e.getMessage();
+            //return e.getMessage();
         }
+
+        return null;
 
     }
 

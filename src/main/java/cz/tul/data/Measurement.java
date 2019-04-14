@@ -13,7 +13,7 @@ public class Measurement {
 
 
     protected float temp; //dle units, snazim se vzdy tahat v stupnich Celsia
-    protected float pressure; // v hPA
+    protected int pressure; // v hPA
     protected int humidity; //vlhkost vzduchu v %
 
     protected long measured_timestamp;
@@ -30,7 +30,19 @@ public class Measurement {
     }
 
 
-    public Measurement(int id, float temp, float pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(int id, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+        this.id = id;
+        this.temp = temp;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.measured_timestamp = measured_timestamp;
+        this.unit = unit;
+
+        this.mesaured_at = new Date(measured_timestamp);
+
+    }
+
+    public Measurement(float temp, int pressure, int humidity, long measured_timestamp, String unit) {
         this.id = id;
         this.temp = temp;
         this.pressure = pressure;
@@ -77,7 +89,7 @@ public class Measurement {
         this.temp = temp;
     }
 
-    public void setPressure(float pressure) {
+    public void setPressure(int pressure) {
         this.pressure = pressure;
     }
 
