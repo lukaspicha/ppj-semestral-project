@@ -22,9 +22,9 @@ public class CitiesDao {
     public List<City> getCitties() {
 
         return jdbc
-                .query("select cities.id as id,  cities.name as city_name, countries.code as country_code, countries.name as country_name from cities left join countries on (cities.code = countries.code)",
+                .query("select cities.id as id,  cities.name as city_name, countries.code as country_code, countries.name as country_name, openweathermap_name from cities left join countries on (cities.code = countries.code)",
                         (ResultSet rs, int rowNum) -> {
-                            return new City(rs.getInt("id"),  new Country(rs.getString("country_code"), rs.getString("country_name")), rs.getString("city_name"));
+                            return new City(rs.getInt("id"),  new Country(rs.getString("country_code"), rs.getString("country_name")), rs.getString("city_name"), rs.getString("openweathermap_name"));
                         }
                 );
     }

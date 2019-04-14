@@ -16,7 +16,7 @@ public class City {
     protected String name;
 
     @Column(name = "openweathermap_name")
-    protected String openEatherMapName;
+    protected String openWeatherMapName;
 
     @ManyToOne(fetch = FetchType.EAGER) // https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
     @JoinColumn(name = "country_code")
@@ -26,17 +26,17 @@ public class City {
 
     }
 
-    public City(Country country, String name, String openEatherMapName) {
+    public City(Country country, String name, String openWeatherMapName) {
         this.country = country;
         this.name = name;
-        this.openEatherMapName = openEatherMapName;
+        this.openWeatherMapName = openWeatherMapName;
     }
 
-    public City(int id, Country country, String name, String openEatherMapName) {
+    public City(int id, Country country, String name, String openWeatherMapName) {
         this.id = id;
         this.country = country;
         this.name = name;
-        this.openEatherMapName = openEatherMapName
+        this.openWeatherMapName = openWeatherMapName;
     }
 
     public int getId() {
@@ -64,21 +64,21 @@ public class City {
         this.country = country;
     }
 
-    public String getOpenEatherMapName() {
-        return this.openEatherMapName;
+    public String getOpenWeatherMapName() {
+        return this.openWeatherMapName;
     }
 
-    public void  setOpenEatherMapName(String openEatherMapName) {
-         this.openEatherMapName = openEatherMapName;
+    public void  setOpenWeatherMapName(String openWeatherMapName) {
+         this.openWeatherMapName = openWeatherMapName;
     }
 
     @Override
     public String toString() {
         return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", openEatherMapName='" + openEatherMapName + '\'' +
-                ", country=" + country +
+                "id=" + this.id +
+                ", name='" + this.name + '\'' +
+                ", openEatherMapName='" + this.openWeatherMapName + '\'' +
+                ", country=" +this.country +
                 '}';
     }
 }
