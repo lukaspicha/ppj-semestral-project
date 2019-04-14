@@ -15,7 +15,7 @@ public class City {
     @Column(name = "name")
     protected String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER) // https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
     @JoinColumn(name = "country_code")
     protected Country country;
 
@@ -56,12 +56,13 @@ public class City {
     }
 
     public void setCountry(Country country) {
+
         this.country = country;
     }
 
     @Override
     public String toString() {
-        return "City[id=" + this.id + ", name=" + this.name +  ", city=" + this.country + "]";
+        return "City[id=" + this.id + ", name=" + this.name + ", country=" + this.country + "]";
     }
 
 }

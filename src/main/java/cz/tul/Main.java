@@ -21,7 +21,7 @@ import java.util.List;
 public class Main {
 
     @Bean
-    public CityService cityResource() {
+    public CityService cityService() {
         return new CityService();
     }
 
