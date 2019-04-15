@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.tul.data.Measurement;
 import org.omg.CORBA.Object;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
+@Service
 public class OpenWeatherMapService {
 
     //TODO nacist si to z app.properties
