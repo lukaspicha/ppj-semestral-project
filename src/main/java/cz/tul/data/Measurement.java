@@ -1,15 +1,15 @@
 package cz.tul.data;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
 import java.util.Date;
 import java.sql.Timestamp;
 
-
-
+@Document(collection = "measurements")
 public class Measurement {
 
-    @Id
-    protected int id;
+
+    protected ObjectId id;
 
 
     protected float temp; //dle units, snazim se vzdy tahat v stupnich Celsia
@@ -30,7 +30,7 @@ public class Measurement {
     }
 
 
-    public Measurement(int id, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(ObjectId id, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
         this.id = id;
         this.temp = temp;
         this.pressure = pressure;
@@ -38,23 +38,22 @@ public class Measurement {
         this.measured_timestamp = measured_timestamp;
         this.unit = unit;
 
-        this.mesaured_at = new Date(measured_timestamp);
+        this.mesaured_at = new Date(measured_timestamp * 1000);
 
     }
 
     public Measurement(float temp, int pressure, int humidity, long measured_timestamp, String unit) {
-        this.id = id;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
         this.measured_timestamp = measured_timestamp;
         this.unit = unit;
 
-        this.mesaured_at = new Date((new Timestamp(this.measured_timestamp)).getTime());
+        this.mesaured_at = new Date(measured_timestamp * 1000);
 
     }
 
-    public int getId() {
+    public ObjectId getId() {
         return this.id;
     }
 
@@ -81,7 +80,7 @@ public class Measurement {
     public String getUnit() {
         return this.unit;
     }
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
