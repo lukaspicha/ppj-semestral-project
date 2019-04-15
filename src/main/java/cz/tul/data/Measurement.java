@@ -2,13 +2,14 @@ package cz.tul.data;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Id;
 import java.util.Date;
 import java.sql.Timestamp;
 
 @Document(collection = "measurements")
 public class Measurement {
 
-
+    @Id
     protected ObjectId id;
 
 
