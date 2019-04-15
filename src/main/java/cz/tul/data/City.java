@@ -82,4 +82,28 @@ public class City {
                 ", country=" +this.country +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (id != city.id) return false;
+        if (name != null ? !name.equals(city.name) : city.name != null) return false;
+        if (openWeatherMapName != null ? !openWeatherMapName.equals(city.openWeatherMapName) : city.openWeatherMapName != null)
+            return false;
+        return country != null ? country.equals(city.country) : city.country == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (openWeatherMapName != null ? openWeatherMapName.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        return result;
+    }
 }
