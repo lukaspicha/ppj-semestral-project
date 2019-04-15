@@ -64,6 +64,7 @@ public class City {
         this.country = country;
     }
 
+    // ve skutecnosti se jedna o id, spatne pojmenovani
     public String getOpenWeatherMapName() {
         return this.openWeatherMapName;
     }

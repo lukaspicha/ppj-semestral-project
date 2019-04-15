@@ -30,4 +30,17 @@ public class CityService {
         this.cityRepository.delete(country);
     }
 
+    public City getById(int id) {
+        return this.cityRepository.findOne(id);
+    }
+
+    public List<City> findByName(String name) {
+        return this.cityRepository.findByName(name);
+    }
+
+    public List<City> findByCountryCode(String country_code) {
+        return this.cityRepository.findByCountryCode(country_code);
+    }
+
+
 }
