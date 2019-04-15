@@ -1,8 +1,6 @@
 package cz.tul;
 
 import cz.tul.data.Country;
-import cz.tul.data.User;
-import cz.tul.data.UsersDao;
 import cz.tul.service.CountryService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Main.class})
@@ -25,24 +22,23 @@ import static org.junit.Assert.assertTrue;
 public class CountriesServiceTests {
 
     @Autowired
-    private CountryService countryService;
+    protected CountryService countryService;
 
 
     @Test
-    public void TestInsertAndGet() {
+    public void testInsertAndGet() {
         Country country_pol = new Country("POL", "Polsko");
-
         this.countryService.create(country_pol);
+
         List<Country> countries = this.countryService.selectAll();
+
         assertEquals("Count of countries after cretaing should be 1", 1, countries.size());
-
-
         assertEquals("Countries should be equals", country_pol, this.countryService.getByCode("POL"));
 
 
     }
     @Test
-    public void TestUpdate() {
+    public void testUpdate() {
         Country country_pol = new Country("POL", "Posko");
         this.countryService.create(country_pol);
 
@@ -52,14 +48,13 @@ public class CountriesServiceTests {
 
         assertEquals("Country name should be " + correctStateName, correctStateName, this.countryService.getByCode("POL").getName());
 
-
     }
 
     @Test
-    public void TestDeleteAll() {
-
+    public void testDeleteAll() {
         this.countryService.delete();
         List<Country> countires = this.countryService.selectAll();
+
         assertEquals("Count of countries after delete should be 0", 0, countires.size());
 
     }
