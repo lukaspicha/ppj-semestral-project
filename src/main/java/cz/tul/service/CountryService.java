@@ -32,6 +32,15 @@ public class CountryService {
         this.countryRepository.delete(country);
     }
 
+    public Country getByCode(String code) {
+        return this.countryRepository.findOne(code);
+    }
+
+
+    public void update(Country country) {
+        this.countryRepository.save(country);
+    }
+
 
 
 
