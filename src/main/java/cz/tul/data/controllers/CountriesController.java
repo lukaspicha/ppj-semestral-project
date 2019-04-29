@@ -1,13 +1,14 @@
 package cz.tul.data.controllers;
 
 import cz.tul.data.Country;
+import cz.tul.data.CountryNotFoundException;
+import cz.tul.data.ResponseStatusException;
 import cz.tul.service.CountryService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -27,6 +28,67 @@ public class CountriesController {
         List<Country> countries = this.countryService.selectAll();
         return new ResponseEntity<>(countries, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/countries/{code}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<Country> getCountry(@PathVariable String code) {
+        try {
+            Country country = this.countryService.getByCode(code);
+            if(country == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(country, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/countries", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<Country> createCountry(@RequestBody Country country) { //lecture12_RestOWn
+        try {
+            if(this.countryService.getByCode(country.getCode()) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            this.countryService.create(country);
+            return new ResponseEntity<>(country, HttpStatus.CREATED);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/countries/{code}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity deleteCountry(@PathVariable String code) {
+        try {
+            Country country = this.countryService.getByCode(code);
+            if(country == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            this.countryService.delete(country);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/countries/{code}", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Country> deleteCountry(@PathVariable String code, @RequestBody String name) {
+        try {
+            Country country = this.countryService.getByCode(code);
+            if(country == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            JSONObject rawData = new JSONObject(name);
+            country.setName(rawData.getString("name"));
+            this.countryService.update(country);
+            return new ResponseEntity<Country>(country, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+
+
 
 
 }
