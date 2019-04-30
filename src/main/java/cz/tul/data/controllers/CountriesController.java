@@ -79,15 +79,17 @@ public class CountriesController {
     }
 
     @RequestMapping(value = "/countries/{code}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Country> deleteCountry(@PathVariable String code, @RequestBody String name) {
+    public ResponseEntity<Country> updateCountry(@PathVariable String code, @RequestBody String httpBody) {
         this.logger.info("PUT /countries/" +  code + "\n" + name);
         try {
             Country country = this.countryService.getByCode(code);
             if(country == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            JSONObject rawData = new JSONObject(name);
-            country.setName(rawData.getString("name"));
+            JSONObject rawData = new JSONObject(httpBody);
+            if(rawData.has("name")) {
+                country.setName(rawData.getString("name"));
+            }
             this.countryService.update(country);
             return new ResponseEntity<Country>(country, HttpStatus.OK);
         } catch(Exception e) {
