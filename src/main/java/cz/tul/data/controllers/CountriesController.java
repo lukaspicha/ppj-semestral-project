@@ -80,7 +80,7 @@ public class CountriesController {
 
     @RequestMapping(value = "/countries/{code}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Country> updateCountry(@PathVariable String code, @RequestBody String httpBody) {
-        this.logger.info("PUT /countries/" +  code + "\n" + name);
+        this.logger.info("PUT /countries/" +  code + "\n" + httpBody);
         try {
             Country country = this.countryService.getByCode(code);
             if(country == null) {
