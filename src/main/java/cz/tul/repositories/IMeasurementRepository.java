@@ -15,4 +15,18 @@ public interface IMeasurementRepository extends MongoRepository<Measurement, Obj
 
     List<Measurement> findByOpenWeatherMapName(String openWeatherMapName);
 
+    //prumery pro dane mesto od urciteho datumu
+    // db.measurements.aggregate([
+    //                     { $match: { openWeatherMapName: "524901" , measuredTimestamp: {$gte: 1556650211 }} },
+    //                     { $group: { _id: "$openWeatherMapName", pressureAvg: { $avg: "$pressure" },  humidityAvg: { $avg: "$humidity" },  tempAvg: { $avg: "$temp" } } }
+    //                   ])
+
+    //prumery pro vsechna mesta od urciteho datumu
+    // db.measurements.aggregate([
+    //                     { $match: {  measuredTimestamp: {$gte: 1556650211 }} },
+    //                     { $group: { _id: "$openWeatherMapName", pressureAvg: { $avg: "$pressure" },  humidityAvg: { $avg: "$humidity" },  tempAvg: { $avg: "$temp" } } }
+    //                   ])
+
+   ])
+
 }
