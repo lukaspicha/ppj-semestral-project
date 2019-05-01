@@ -27,6 +27,5 @@ public interface IMeasurementRepository extends MongoRepository<Measurement, Obj
     //                     { $group: { _id: "$openWeatherMapName", pressureAvg: { $avg: "$pressure" },  humidityAvg: { $avg: "$humidity" },  tempAvg: { $avg: "$temp" } } }
     //                   ])
 
-   ])
 
 }
