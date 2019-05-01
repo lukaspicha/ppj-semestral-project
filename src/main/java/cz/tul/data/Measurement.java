@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.util.Date;
-import java.sql.Timestamp;
 
 @Document(collection = "measurements")
 public class Measurement {
@@ -12,7 +11,7 @@ public class Measurement {
     @Id
     protected ObjectId id;
 
-    protected City city;
+    protected String openWeatherMapName;
 
     protected float temp; //dle units, snazim se vzdy tahat v stupnich Celsia
     protected int pressure; // v hPA
@@ -32,9 +31,9 @@ public class Measurement {
     }
 
 
-    public Measurement(ObjectId id, City city, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(ObjectId id, String openWeatherMapName, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
         this.id = id;
-        this.city = city;
+        this.openWeatherMapName = openWeatherMapName;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -45,8 +44,8 @@ public class Measurement {
 
     }
 
-    public Measurement(City city, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
-        this.city = city;
+    public Measurement(String openWeatherMapName, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+        this.openWeatherMapName = openWeatherMapName;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -61,7 +60,7 @@ public class Measurement {
         return this.id;
     }
 
-    public City getCity() { return this.city; }
+    public String getOpenWeatherMapName() { return this.openWeatherMapName; }
 
     public float getTemp() {
         return this.temp;
@@ -91,7 +90,7 @@ public class Measurement {
         this.id = id;
     }
 
-    public void setCity(City city) {this.city = city; }
+    public void setOpenWeatherMapName(String openWeatherMapName) {this.openWeatherMapName = openWeatherMapName; }
 
     public void setTemp(float temp) {
         this.temp = temp;
@@ -122,7 +121,7 @@ public class Measurement {
     public String toString() {
         return "Measurement{" +
                 "id=" + id +
-                ", city=" + city +
+                ", openWeatherMapName=" + openWeatherMapName +
                 ", temp=" + temp +
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
