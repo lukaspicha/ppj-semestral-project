@@ -12,6 +12,7 @@ public class Measurement {
     @Id
     protected ObjectId id;
 
+    protected City city;
 
     protected float temp; //dle units, snazim se vzdy tahat v stupnich Celsia
     protected int pressure; // v hPA
@@ -31,8 +32,9 @@ public class Measurement {
     }
 
 
-    public Measurement(ObjectId id, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(ObjectId id, City city, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
         this.id = id;
+        this.city = city;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -43,7 +45,8 @@ public class Measurement {
 
     }
 
-    public Measurement(float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(City city, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+        this.city = city;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -57,6 +60,8 @@ public class Measurement {
     public ObjectId getId() {
         return this.id;
     }
+
+    public City getCity() { return this.city; }
 
     public float getTemp() {
         return this.temp;
@@ -81,9 +86,12 @@ public class Measurement {
     public String getUnit() {
         return this.unit;
     }
+
     public void setId(ObjectId id) {
         this.id = id;
     }
+
+    public void setCity(City city) {this.city = city; }
 
     public void setTemp(float temp) {
         this.temp = temp;
@@ -114,6 +122,7 @@ public class Measurement {
     public String toString() {
         return "Measurement{" +
                 "id=" + id +
+                ", city=" + city +
                 ", temp=" + temp +
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
