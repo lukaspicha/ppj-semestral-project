@@ -53,7 +53,7 @@ public class FeedController {
             if(cities.size() > 0) {
                List<Measurement> measurements = this.openWeatherMapService.downloadWeatherDataByCitiesIds(cities);
                if(measurements.size() > 0) {
-                   this.logger.info("Adding a " + measurements.size() . " measuremnets to db");
+                   this.logger.info("Adding a " + measurements.size() + " measuremnets to db");
                    this.measurementService.insertMultiple(measurements);
                } else {
                    this.logger.info("After downloadind from OWM is list of measurements empty");
