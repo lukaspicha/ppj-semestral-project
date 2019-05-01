@@ -1,7 +1,6 @@
 package cz.tul.repositories;
 
 import cz.tul.data.City;
-import cz.tul.data.Measurement;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
