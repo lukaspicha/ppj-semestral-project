@@ -17,11 +17,11 @@ public class Measurement {
     protected int pressure; // v hPA
     protected int humidity; //vlhkost vzduchu v %
 
-    protected long measured_timestamp;
+    protected long measuredTimestamp;
 
 
 
-    protected Date mesaured_at;
+    protected Date mesauredAt;
 
     protected String unit;
 
@@ -31,28 +31,28 @@ public class Measurement {
     }
 
 
-    public Measurement(ObjectId id, String openWeatherMapName, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(ObjectId id, String openWeatherMapName, float temp, int pressure, int humidity, long measuredTimestamp, String unit) {
         this.id = id;
         this.openWeatherMapName = openWeatherMapName;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
-        this.measured_timestamp = measured_timestamp;
+        this.measuredTimestamp = measuredTimestamp;
         this.unit = unit;
 
-        this.mesaured_at = new Date(measured_timestamp * 1000);
+        this.mesauredAt = new Date(measuredTimestamp * 1000);
 
     }
 
-    public Measurement(String openWeatherMapName, float temp, int pressure, int humidity, long measured_timestamp, String unit) {
+    public Measurement(String openWeatherMapName, float temp, int pressure, int humidity, long measuredTimestamp, String unit) {
         this.openWeatherMapName = openWeatherMapName;
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
-        this.measured_timestamp = measured_timestamp;
+        this.measuredTimestamp = measuredTimestamp;
         this.unit = unit;
 
-        this.mesaured_at = new Date(measured_timestamp * 1000);
+        this.mesauredAt = new Date(measuredTimestamp * 1000);
 
     }
 
@@ -74,12 +74,12 @@ public class Measurement {
         return this.humidity;
     }
 
-    public long getMeasured_timestamp() {
-        return this.measured_timestamp;
+    public long getMeasuredTimestamp() {
+        return this.measuredTimestamp;
     }
 
-    public Date getMesaured_at() {
-        return this.mesaured_at;
+    public Date getMesauredAt() {
+        return this.mesauredAt;
     }
 
     public String getUnit() {
@@ -104,12 +104,12 @@ public class Measurement {
         this.humidity = humidity;
     }
 
-    public void setMeasured_timestamp(long measured_timestamp) {
-        this.measured_timestamp = measured_timestamp;
+    public void setMeasuredTimestamp(long measured_timestamp) {
+        this.measuredTimestamp = measuredTimestamp;
     }
 
-    public void setMesaured_at(Date mesaured_at) {
-        this.mesaured_at = mesaured_at;
+    public void setMesauredAt(Date mesauredAt) {
+        this.mesauredAt = mesauredAt;
     }
 
     public void setUnit(String unit) {
@@ -125,8 +125,8 @@ public class Measurement {
                 ", temp=" + temp +
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
-                ", measured_timestamp=" + measured_timestamp +
-                ", mesaured_at=" + mesaured_at +
+                ", measuredTimestamp=" + measuredTimestamp +
+                ", mesauredAt=" + mesauredAt +
                 ", unit='" + unit + '\'' +
                 '}';
     }
