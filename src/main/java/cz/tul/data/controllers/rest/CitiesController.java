@@ -1,4 +1,4 @@
-package cz.tul.data.controllers;
+package cz.tul.data.controllers.rest;
 
 import cz.tul.data.City;
 import cz.tul.data.Country;

@@ -1,8 +1,6 @@
-package cz.tul.data.controllers;
+package cz.tul.data.controllers.rest;
 
 import cz.tul.data.Country;
-import cz.tul.data.CountryNotFoundException;
-import cz.tul.data.ResponseStatusException;
 import cz.tul.service.CountryService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
