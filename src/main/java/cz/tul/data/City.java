@@ -78,7 +78,7 @@ public class City {
         return "City{" +
                 "id=" + this.id +
                 ", name='" + this.name + '\'' +
-                ", openEatherMapName='" + this.openWeatherMapName + '\'' +
+                ", openWeatherMapName='" + this.openWeatherMapName + '\'' +
                 ", country=" +this.country +
                 '}';
     }
