@@ -42,5 +42,9 @@ public class CityService {
         return this.cityRepository.findByCountryCode(country_code);
     }
 
+    public void update(City city) {
+        this.cityRepository.save(city);
+    }
+
 
 }
