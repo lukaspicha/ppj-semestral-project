@@ -2,6 +2,8 @@ package cz.tul.service;
 
 import cz.tul.data.City;
 import cz.tul.repositories.ICityRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -44,6 +46,16 @@ public class CityService {
 
     public void update(City city) {
         this.cityRepository.save(city);
+    }
+
+    public List<String> getAllOpenWeatherMapNames() {
+        List<String> names = new ArrayList<String>();
+        for (City city : this.selectAll()) {
+           if(city.getOpenWeatherMapName() != null) {
+               names.add(city.getOpenWeatherMapName());
+           }
+        }
+        return names;
     }
 
 
