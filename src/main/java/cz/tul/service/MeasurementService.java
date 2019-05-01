@@ -31,9 +31,17 @@ public class MeasurementService {
 
     }
 
+    public void insertMultiple(List<Measurement> measurements) {
+        this.measurementRepository.insert(measurements);
+    }
+
 
     public List<Measurement> getAll() {
         return  this.measurementRepository.findAll();
+    }
+
+    public void deleteWhereMeasuredTimestampLessThan(long time) {
+        this.measurementRepository.deleteWhereMeasuredTimestampLessThan(time);
     }
 
 }
