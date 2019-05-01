@@ -1,12 +1,22 @@
 package cz.tul.data;
 
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-
+@Entity
+@Table(name = "countries")
 public class Country {
 
-    private String code;
-    private String name;
+    @Id
+    @Column(name = "code")
+    protected String code;
+
+    @Column(name = "name")
+    protected String name;
+
 
     public Country() {
 
@@ -33,10 +43,30 @@ public class Country {
         this.name = name;
     }
 
+
     @Override
     public String toString() {
-        return "Country[code=" + this.code + ", name=" + this.name + "]";
+        return "Country{" +
+                "code='" + this.code + '\'' +
+                ", name='" + this.name + '\'' +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Country country = (Country) o;
+
+        if (code != null ? !code.equals(country.code) : country.code != null) return false;
+        return name != null ? name.equals(country.name) : country.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 }
