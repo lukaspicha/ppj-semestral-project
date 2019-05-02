@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Weather Wizard</h1>
+
+<ul th:each="country: ${countries}">
+    <a th:href="@{'/home/detail/' + ${country.code}}"><li th:text="${country.name}"></li></a>
+</ul>
+
+</body>
+</html>
