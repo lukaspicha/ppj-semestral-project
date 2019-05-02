@@ -1,6 +1,7 @@
 package cz.tul.data.controllers.rest;
 
 import cz.tul.data.Measurement;
+import cz.tul.data.WeatherData;
 import cz.tul.service.MeasurementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.Document;
 import java.util.Date;
 import java.util.List;
 
@@ -54,19 +56,20 @@ public class WeatherController {
     }
 
     @RequestMapping(value = "/weather/averages/{id}/{averageFor}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Measurement>> getCountry(@PathVariable String id, @PathVariable String averageFor) {
+    public ResponseEntity<Document> getCountry(@PathVariable String id, @PathVariable String averageFor) {
         this.logger.info("GET /weather/averages/" + id + "/" + averageFor);
         try {
             Date date = new Date();
             long time = date.getTime() - this.getIntervalFromParam(averageFor);
 
 
-            AggregationResults<Measurement> list  = this.measurementService.getAveragesgetByOpenWeatherMapName("524901", 20);
-            //this.logger.info("Returning a " + measurements.size() + "measuremenets for id " + id);
-            //return new ResponseEntity<List<Measurement>>(measurements, HttpStatus.OK);
+            AggregationResults<WeatherData> x  =  this.measurementService.getAveragesByOpenWeatherMapName(id, time);
 
+            System.out.println(x.getUniqueMappedResult());
             return new ResponseEntity<>(HttpStatus.OK);
+
         } catch(Exception e) {
+            this.logger.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
