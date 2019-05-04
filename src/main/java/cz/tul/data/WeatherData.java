@@ -11,15 +11,18 @@ public class WeatherData {
     protected float humidityAvg;
     protected float pressureAvg;
 
+    protected long measuredTimestamp;
+
     public WeatherData() {
 
     }
 
-    public WeatherData(String openWeatherMapName, float tempAvg, float humidityAvg, float pressureAvg) {
+    public WeatherData(String openWeatherMapName, float tempAvg, float humidityAvg, float pressureAvg, long measuredTimestamp) {
         this.openWeatherMapName = openWeatherMapName;
         this.tempAvg = tempAvg;
         this.humidityAvg = humidityAvg;
         this.pressureAvg = pressureAvg;
+        this.measuredTimestamp = measuredTimestamp;
     }
 
     public void setOpenWeatherMapName(String openWeatherMapName) {
@@ -38,6 +41,8 @@ public class WeatherData {
         this.pressureAvg = pressureAvg;
     }
 
+    public void setMeasuredTimestamp(long measuredTimestamp) {this.measuredTimestamp = measuredTimestamp;}
+
     public String getOpenWeatherMapName() {
         return openWeatherMapName;
     }
@@ -54,6 +59,10 @@ public class WeatherData {
         return pressureAvg;
     }
 
+    public long getMeasuredTimestamp() {
+        return this.measuredTimestamp;
+    }
+
     @Override
     public String toString() {
         return "WeatherData{" +
@@ -61,6 +70,7 @@ public class WeatherData {
                 ", tempAvg=" + tempAvg +
                 ", humidityAvg=" + humidityAvg +
                 ", pressureAvg=" + pressureAvg +
+                ", measuredTimestamp=" + measuredTimestamp +
                 '}';
     }
 }

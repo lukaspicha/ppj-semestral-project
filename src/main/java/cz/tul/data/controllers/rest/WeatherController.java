@@ -44,7 +44,7 @@ public class WeatherController {
 
 
     @RequestMapping(value = "/weather/history/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Measurement>> getCountry(@PathVariable String id) {
+    public ResponseEntity<List<Measurement>> getCityHistory(@PathVariable String id) {
         this.logger.info("GET /weather/history/" + id);
         try {
             List<Measurement> measurements = this.measurementService.getByOpenWeatherMapName(id);
@@ -56,17 +56,15 @@ public class WeatherController {
     }
 
     @RequestMapping(value = "/weather/averages/{id}/{averageFor}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Document> getCountry(@PathVariable String id, @PathVariable String averageFor) {
+    public ResponseEntity<WeatherData> getWeatherAverages (@PathVariable String id, @PathVariable String averageFor) {
         this.logger.info("GET /weather/averages/" + id + "/" + averageFor);
         try {
             Date date = new Date();
             long time = date.getTime() - this.getIntervalFromParam(averageFor);
 
+            WeatherData weatherData  =  this.measurementService.getAveragesByOpenWeatherMapNameAndTimeGreaterThan(id, 1556731740);
 
-            AggregationResults<WeatherData> x  =  this.measurementService.getAveragesByOpenWeatherMapName(id, time);
-
-            System.out.println(x.getUniqueMappedResult());
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<WeatherData>(weatherData, HttpStatus.OK);
 
         } catch(Exception e) {
             this.logger.error(e.getMessage());

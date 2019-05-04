@@ -51,18 +51,27 @@ public class MeasurementService {
         this.measurementRepository.deleteByMeasuredTimestamp(time);
     }
 
+    public void getAveragesByOpenWeatherMapName() {
 
-    public AggregationResults<WeatherData> getAveragesByOpenWeatherMapName(String openWeatherMapName, long time) {
+        //TypedAggregation<WeatherData> aff = newAggregation(W)
+    }
+    public WeatherData getAveragesByOpenWeatherMapNameAndTimeGreaterThan(String openWeatherMapName, long time) {
 
-        GroupOperation avgTemp = group("openWeatherMapName").avg("temp").as("tempAvg");
-        GroupOperation avgPressure = group("openWeatherMapName").avg("pressure").as("pressureAvg");
-        GroupOperation avgHumidity = group("openWeatherMapName").avg("humidity").as("humidityAvg");
+        List<Measurement> meas = this.measurementRepository.findByOpenWeatherMapNameAndTimeGreaterThen(openWeatherMapName, time);
+        float sumOfTemp = 0;
+        float sumOfHumidity = 0;
+        float sumOfPress = 0;
+        int n = 0;
+        for (Measurement m : meas) {
+            sumOfTemp += m.getTemp();
+            sumOfHumidity += m.getHumidity();
+            sumOfPress += m.getPressure();
+            n++;
+        }
 
-        MatchOperation filterByParams = match(new Criteria("openWeatherMapName").is(openWeatherMapName).andOperator(new Criteria("measuredTimestamp").gte(time)));
+        WeatherData weatherData = new WeatherData(openWeatherMapName, sumOfTemp / n, sumOfHumidity / n , sumOfPress / n, time);
+        return weatherData;
 
-        Aggregation agg = newAggregation(avgTemp, avgPressure, avgHumidity, filterByParams).withOptions(newAggregationOptions().cursor(new BasicDBObject()).build());
-        AggregationResults<WeatherData> result = this.mongoTemplate.aggregate(agg, "measurements", WeatherData.class);
-        return result;
     }
 
 }
