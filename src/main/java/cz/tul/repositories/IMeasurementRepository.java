@@ -18,6 +18,9 @@ public interface IMeasurementRepository extends MongoRepository<Measurement, Obj
     @Query("{ openWeatherMapName: ?0, measuredTimestamp: {$gte: ?1} }")
     List<Measurement> findByOpenWeatherMapNameAndTimeGreaterThen(String openWeatherMapName, long time);
 
+    @Query("{ openWeatherMapName: {$in: ?0}}, $orderby: {measuredTimestamp : 1}")
+    List<Measurement> findMeasurementsForOpenWeatherMapName(List<String> openWeatherMapNames);
+
     List<Measurement> findByOpenWeatherMapName(String openWeatherMapName);
 
     //prumery pro dane mesto od urciteho datumu

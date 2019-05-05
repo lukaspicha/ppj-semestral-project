@@ -47,6 +47,10 @@ public class MeasurementService {
         return this.measurementRepository.findByOpenWeatherMapName(openWeatherMapName);
     }
 
+    public List<Measurement> findMeasurementsForOpenWeatherMapName(List<String> openWeatherMapNames) {
+        return this.measurementRepository.findMeasurementsForOpenWeatherMapName(openWeatherMapNames);
+    }
+
     public void deleteOldData(long time) {
         this.measurementRepository.deleteByMeasuredTimestamp(time);
     }

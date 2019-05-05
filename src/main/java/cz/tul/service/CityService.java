@@ -1,6 +1,7 @@
 package cz.tul.service;
 
 import cz.tul.data.City;
+import cz.tul.data.Country;
 import cz.tul.repositories.ICityRepository;
 
 import java.util.ArrayList;
@@ -54,6 +55,16 @@ public class CityService {
            if(city.getOpenWeatherMapName() != null) {
                names.add(city.getOpenWeatherMapName());
            }
+        }
+        return names;
+    }
+
+    public List<String> getAllOpenWeatherMapNames(Country country) {
+        List<String> names = new ArrayList<String>();
+        for (City city : this.findByCountryCode(country.getCode())) {
+            if(city.getOpenWeatherMapName() != null) {
+                names.add(city.getOpenWeatherMapName());
+            }
         }
         return names;
     }

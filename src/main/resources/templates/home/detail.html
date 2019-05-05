@@ -19,6 +19,14 @@
         </ul>
     </ul>
 
+    <table th:each="measData: ${lines}"  border="1">
+        <tr>
+            <td th:text="${#dates.format(measData.key, 'dd.MM.yyyy HH:mm:ss')}"></td>
+            <td th:each="cityMeas: ${measData.value}" th:text="'CityId: ' + ${cityMeas.openWeatherMapName} + ' Tlak: ' + ${cityMeas.pressure} + ' Teplota: ' + ${cityMeas.temp} + ' Vlhkost: ' + ${cityMeas.humidity}"></td>
+
+        </tr>
+    </table>
+
 
 
 

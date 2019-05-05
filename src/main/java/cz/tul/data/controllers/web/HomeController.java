@@ -2,6 +2,7 @@ package cz.tul.data.controllers.web;
 
 import cz.tul.data.City;
 import cz.tul.data.Country;
+import cz.tul.data.Measurement;
 import cz.tul.data.WeatherData;
 import cz.tul.service.CityService;
 import cz.tul.service.CountryService;
@@ -43,7 +44,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/detail/{countryCode}", method = RequestMethod.GET)
-    public String welcomeName(@PathVariable String countryCode, ModelMap model) {
+    public String showDetail(@PathVariable String countryCode, ModelMap model) {
         Country country = this.countryService.getByCode(countryCode);
         if(country != null) {
             model.addAttribute("country", country);
@@ -51,9 +52,11 @@ public class HomeController {
             Map<City, List<WeatherData>> weatherData = new HashMap<City, List<WeatherData>>();
             long time = System.currentTimeMillis() / 1000;
 
-            for (City c : cities) {
+            Map<Date, List<Measurement>> lines = new HashMap<Date, List<Measurement>>();
 
+            for (City c : cities) {
                 List<WeatherData> weatherAverages = new ArrayList<WeatherData>();
+
                 weatherAverages.add(this.measurementService.getAveragesByOpenWeatherMapNameAndTimeGreaterThan(c.getOpenWeatherMapName(), time - 3600));
                 weatherAverages.add(this.measurementService.getAveragesByOpenWeatherMapNameAndTimeGreaterThan(c.getOpenWeatherMapName(), time - 1209600));
                 weatherAverages.add(this.measurementService.getAveragesByOpenWeatherMapNameAndTimeGreaterThan(c.getOpenWeatherMapName(), time - (2 * 1209600)));
@@ -61,7 +64,19 @@ public class HomeController {
                 weatherData.put(c, weatherAverages);
             }
             model.addAttribute("weatherData", weatherData);
-            System.out.println(weatherData);
+            for (Measurement m : this.measurementService.findMeasurementsForOpenWeatherMapName(cityService.getAllOpenWeatherMapNames(country))) {
+                if(m.getMesauredAt() == null) {
+                    continue;
+                }
+                if(lines.get(m.getMesauredAt()) == null) {
+                    lines.put(m.getMesauredAt(), new ArrayList<Measurement>());
+                }
+                lines.get(m.getMesauredAt()).add(m);
+
+            }
+
+
+            model.addAttribute("lines", lines);
             return "home/detail";
         }
 
