@@ -7,6 +7,7 @@ import cz.tul.service.OpenWeatherMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class FeedController {
 
     protected OpenWeatherMapService openWeatherMapService;
 
-    // @Value("{openWeatherMap.expireAfterSeconds}")
+    @Value("{openWeatherMap.expireAfterSeconds}")
     protected int expireAfterSeconds = 1209600;
 
     @Autowired
@@ -68,7 +69,7 @@ public class FeedController {
 
 
     @RequestMapping(value = "/feed/delete-old", method = RequestMethod.GET, produces = "application/json")
-   // @Scheduled(cron = "${openWeatherMap.cronDelete}")
+    @Scheduled(cron = "${openWeatherMap.cronDelete}")
     public void deleteOldData() {
         Date date = new Date();
         long time = date.getTime();
