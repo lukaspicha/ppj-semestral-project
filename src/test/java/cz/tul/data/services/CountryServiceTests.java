@@ -1,5 +1,6 @@
-package cz.tul;
+package cz.tul.data.services;
 
+import cz.tul.Main;
 import cz.tul.data.Country;
 import cz.tul.service.CountryService;
 import org.junit.FixMethodOrder;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 @SpringApplicationConfiguration(classes = {Main.class})
 @ActiveProfiles({"devel"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CountriesServiceTests {
+public class CountryServiceTests {
 
     @Autowired
     protected CountryService countryService;
