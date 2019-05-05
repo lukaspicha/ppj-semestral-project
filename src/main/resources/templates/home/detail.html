@@ -6,5 +6,23 @@
 </head>
 <body>
     <h2 th:text="${country.name}"></h2>
+    <h4>Průměry</h4>
+    <ul th:each="cityData: ${weatherData}">
+        <li th:text="${cityData.key.name}"></li>
+        <ul th:each="weatherAverages: ${cityData.value}">
+            <p th:text="'Průměry od: ' + ${#dates.format(weatherAverages.measuredFrom, 'dd.MM.yyyy HH:mm')}"></p>
+            <ul>
+                <li th:text="'Teplota: ' + ${weatherAverages.tempAvg}"></li>
+                <li th:text="'Tlak: ' + ${weatherAverages.pressureAvg}"></li>
+                <li th:text="'Vlhkost: ' + ${weatherAverages.humidityAvg}"></li>
+            </ul>
+        </ul>
+    </ul>
+
+
+
+
+
+
 </body>
 </html>
