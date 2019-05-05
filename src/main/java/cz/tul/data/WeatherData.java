@@ -1,6 +1,7 @@
 package cz.tul.data;
 
 import javax.persistence.Id;
+import java.util.Date;
 
 public class WeatherData {
 
@@ -11,18 +12,21 @@ public class WeatherData {
     protected float humidityAvg;
     protected float pressureAvg;
 
-    protected long measuredTimestamp;
+    protected long measuredFromTimestamp;
+    protected Date measuredFrom;
 
     public WeatherData() {
 
     }
 
-    public WeatherData(String openWeatherMapName, float tempAvg, float humidityAvg, float pressureAvg, long measuredTimestamp) {
+    public WeatherData(String openWeatherMapName, float tempAvg, float humidityAvg, float pressureAvg, long measuredFromTimestamp) {
         this.openWeatherMapName = openWeatherMapName;
         this.tempAvg = tempAvg;
         this.humidityAvg = humidityAvg;
         this.pressureAvg = pressureAvg;
-        this.measuredTimestamp = measuredTimestamp;
+        this.measuredFromTimestamp = measuredFromTimestamp;
+
+        this.measuredFrom = new Date(measuredFromTimestamp * 1000);
     }
 
     public void setOpenWeatherMapName(String openWeatherMapName) {
@@ -41,7 +45,7 @@ public class WeatherData {
         this.pressureAvg = pressureAvg;
     }
 
-    public void setMeasuredTimestamp(long measuredTimestamp) {this.measuredTimestamp = measuredTimestamp;}
+    public void setMeasuredFromTimestamp(long measuredFromTimestamp) {this.measuredFromTimestamp = measuredFromTimestamp;}
 
     public String getOpenWeatherMapName() {
         return openWeatherMapName;
@@ -59,8 +63,12 @@ public class WeatherData {
         return pressureAvg;
     }
 
-    public long getMeasuredTimestamp() {
-        return this.measuredTimestamp;
+    public long getMeasuredFromimestamp() {
+        return this.measuredFromTimestamp;
+    }
+
+    public Date getMeasuredFrom() {
+        return this.measuredFrom;
     }
 
     @Override
@@ -70,7 +78,7 @@ public class WeatherData {
                 ", tempAvg=" + tempAvg +
                 ", humidityAvg=" + humidityAvg +
                 ", pressureAvg=" + pressureAvg +
-                ", measuredTimestamp=" + measuredTimestamp +
+                ", measuredFromTimestamp=" + measuredFromTimestamp +
                 '}';
     }
 }
