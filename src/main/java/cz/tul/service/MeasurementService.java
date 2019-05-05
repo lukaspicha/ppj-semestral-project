@@ -69,7 +69,7 @@ public class MeasurementService {
             n++;
         }
 
-        WeatherData weatherData = new WeatherData(openWeatherMapName, sumOfTemp / n, sumOfHumidity / n , sumOfPress / n, time);
+        WeatherData weatherData = new WeatherData(openWeatherMapName, sumOfTemp > 0 ? sumOfTemp / n : 0,  sumOfHumidity > 0 ? sumOfHumidity / n : 0 , sumOfPress > 0 ? sumOfPress / n : 0, time);
         return weatherData;
 
     }
