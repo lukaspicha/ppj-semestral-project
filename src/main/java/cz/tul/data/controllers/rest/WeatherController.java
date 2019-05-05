@@ -34,7 +34,7 @@ public class WeatherController {
         try {
             List<Measurement> measurements = this.measurementService.getAll();
             this.logger.info("Returning a " + measurements.size() + "measuremenets");
-            return new ResponseEntity<>(measurements, HttpStatus.OK);
+            return new ResponseEntity<List<Measurement>>(measurements, HttpStatus.OK);
 
         } catch(Exception e) {
             this.logger.error(e.getMessage());

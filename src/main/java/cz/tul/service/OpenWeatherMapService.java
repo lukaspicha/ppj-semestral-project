@@ -27,7 +27,7 @@ public class OpenWeatherMapService {
     protected String appId = "685d749db94d50fddfc47e2f8f28e1a8";
 
     @Value("${openWeatherMap.units}")
-    protected String units = "metrics";
+    protected String units = "metric";
 
     protected RestTemplate restTemplate;
 
