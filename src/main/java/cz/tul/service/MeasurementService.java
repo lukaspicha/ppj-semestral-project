@@ -51,6 +51,19 @@ public class MeasurementService {
         this.measurementRepository.deleteByMeasuredTimestamp(time);
     }
 
+    //db.measurements.aggregate(
+    // {$match: {
+    //      "openWeatherMapName": {$in: ["3071961", "524901"]}}
+    // },
+    // {$group: {
+    //          _id: "$measured_timestamp",
+    //          records: {$push: "$$ROOT"}
+    //      }
+    // }
+    // )
+
+    // db.measurements.aggregate({$match: {"openWeatherMapName": {$in: ["3071961", "524901"]}}},{$group: {_id: "$measured_timestamp", records: {$push: "$$ROOT"}}})
+
     public void getAveragesByOpenWeatherMapName() {
 
         //TypedAggregation<WeatherData> aff = newAggregation(W)
