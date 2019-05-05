@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +29,7 @@ public class ControllerCitiesTests {
     private CountriesController countriesController;
 
     private MockMvc mockMvc;
+
 
     @Before
     public void setup() throws Exception {
@@ -55,6 +57,20 @@ public class ControllerCitiesTests {
     public void testGetUndefined() throws  Exception {
         this.mockMvc.perform(get("/countries/CAN").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
+        ;
+    }
+
+    @Test
+    public void testDeleteUndefined() throws Exception {
+        this.mockMvc.perform(delete("countries/CAN").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+        ;
+    }
+
+    @Test
+    public void testDeleteSpecific() throws Exception {
+        this.mockMvc.perform(delete("countries/AUT").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
         ;
     }
 
