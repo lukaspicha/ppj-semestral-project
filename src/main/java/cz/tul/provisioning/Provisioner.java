@@ -31,7 +31,6 @@ public class Provisioner {
             log.warn("DB Provisioner: No tables exist and will be created");
             createDb();
             allTables = namedParameterJdbcOperations.getJdbcOperations().queryForList("SELECT TABLE_NAME FROM  INFORMATION_SCHEMA.TABLES", String.class);
-            System.out.println(allTables);
         } else
             log.info("DB Provisioner: Table countries and cities exists, all existing tables: " + allTables);
     }
