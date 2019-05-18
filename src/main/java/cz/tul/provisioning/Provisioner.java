@@ -40,7 +40,7 @@ public class Provisioner {
         try {
             ScriptUtils.executeSqlScript(dataSource.getConnection(), rc);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }
