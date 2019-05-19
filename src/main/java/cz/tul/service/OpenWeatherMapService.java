@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import cz.tul.data.City;
 import cz.tul.data.Measurement;
+import cz.tul.data.controllers.rest.WeatherController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,8 @@ public class OpenWeatherMapService {
     protected UriComponentsBuilder uriBuilder;
 
 
+    protected Logger logger = LoggerFactory.getLogger(WeatherController.class);
+
 
     public OpenWeatherMapService() {
         this.uriBuilder = UriComponentsBuilder.fromUriString(this.apiUrl);
@@ -59,18 +64,19 @@ public class OpenWeatherMapService {
                         Measurement meas = new Measurement(cityMeasData.get("id").asText(), cityMeasDataMain.get("temp").floatValue(), cityMeasDataMain.get("pressure").asInt(),  cityMeasDataMain.get("humidity").asInt(), cityMeasData.get("dt").asLong(), this.units);
                         measurements.add(meas);
                     }
+                } else {
+                    logger.error("Nothing downloaded from OpenWeatherMap");
                 }
-                //LOG
+
 
             } else {
-
-               //LOG
+                logger.error("Getting a code "+ response.getStatusCode() + "from OpenWeatherMap");
             }
         } catch (HttpStatusCodeException e) {
             int statusCode = e.getStatusCode().value();
-            System.out.println(e.getStatusText());
+            logger.error(e.getStatusText());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return measurements;
